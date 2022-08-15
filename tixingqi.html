@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>浏览器起始页</title>
+    <meta
+      name="description"
+      content="记录和提醒当前最重要的事，可以设置为浏览器起始页tab"
+    />
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-image: url("https://i0.hdslb.com/bfs/article/a454f3cefcaedeb64dc59d2a584cdae6e31aad57.jpg@942w_1676h_progressive.webp");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #shurukuang {
+        border: 0;
+        border-bottom: 2px solid #fff;
+        padding: 4px 2px;
+        display: block;
+        background: 0;
+        line-height: 1.5;
+        outline: none;
+        text-align: center;
+        transition: border-color 0.2s ease-in-out; /*transition指的是动画的缩放，ease-in-out指的是缩放的速度快慢*/
+        border-radius: 0;
+        color: #fff;
+        font-size: 2rem;
+        max-width: 90%;
+      }
+      #anniu {
+        margin-left: -50px;
+        margin-right: 10px;
+        color: #ccc;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer; /*cursor 指的是光标的不同*/
+      }
+      input::placeholder {
+        color: #ccc;
+      }
+      input::-webkit-input-placeholder {
+        color: #ccc; /*修改webkit中input的planceholder样式*/
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <input placeholder="最重要的事？" id="shurukuang" />
+      <span id="anniu" onclick="change()">√</span>
+    </div>
+    <script>
+      let youshi = false;
+
+      function change() {
+        let anniu = document.getElementById("anniu");
+        let shurukuang = document.getElementById("shurukuang");
+
+        if (youshi) {
+          youshi = false;
+          anniu.innerText = "√";
+          shurukuang.style.borderBottomColor = "#fff";
+          shurukuang.value = "";
+          shurukuang.readOnly = false;
+          window.localStorage.removeItem("shi");
+        } else {
+          youshi = true;
+          anniu.innerText = "×";
+          shurukuang.style.borderBottomColor = "transparent";
+          shurukuang.readOnly = true;
+          window.localStorage.setItem("shi", shurukuang.value);
+        }
+      }
+
+      let data = window.localStorage.getItem("shi");
+      if (data) {
+        document.getElementById("shurukuang").value = data;
+        change();
+      }
+    </script>
+  </body>
+</html>
